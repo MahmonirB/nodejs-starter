@@ -5,5 +5,22 @@
   },
   "devDependencies": {
     "jshint": "^2.13.6"
-  }
+  },
+  "name": "nodejs-starter",
+  "description": "",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MahmonirB/nodejs-starter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MahmonirB/nodejs-starter/issues"
+  },
+  "homepage": "https://github.com/MahmonirB/nodejs-starter#readme"
 }
