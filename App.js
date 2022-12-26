@@ -11,7 +11,10 @@ logger.log('Hiiii');
 const files = fs.readdirSync('./');
 console.log('files:', files);
 
-fs.readdir('./', (err, files) => {
+fs.readdir('./', (err, files) => { // execute in async way
     if(err) console.log('Error:', err);
     if(files) console.log('files:',files);
-})
+});
+
+console.log(__dirname);
+console.log(__filename);
