@@ -1,6 +1,7 @@
 const EventEmitter = require('events');
 const fs = require('fs');
 const Logger = require('./logger');
+const _ = require('underscore');
 
 const logger = new Logger();
 
@@ -18,3 +19,5 @@ fs.readdir('./', (err, files) => { // execute in async way
 
 console.log(__dirname);
 console.log(__filename);
+
+console.log(_.contains([1,2,3], 3));
