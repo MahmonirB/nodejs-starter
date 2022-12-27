@@ -1,11 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const validate = require('./validate');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 const courses = [
     { id: 1, name: 'course1' },
