@@ -3,15 +3,22 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const logger = require('./logger');
 const validate = require('./validate');
+const config = require('config');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+if(app.get('env') === 'development') { // export ENV_NODE=production to test this block
+    console.log('Morgen enabled...');
+    app.use(morgan('tiny'));
+}
+
+console.log('App Name: ' + config.get('name'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // built-in middleware func
 app.use(express.static('public'));
 app.use(helmet());
-app.use(morgan('dev'));
 
 app.use(logger); // custom middleware function
 
