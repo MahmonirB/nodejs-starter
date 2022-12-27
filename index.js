@@ -1,6 +1,8 @@
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const debug = require('debug')('app:startup'); // export DEBUG=app:startup,app:db or DEBUG=app:startup or DEBUG=app:*
+// const dbDebugger = require('debug')('app:db');
 const logger = require('./logger');
 const validate = require('./validate');
 const config = require('config');
@@ -9,11 +11,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 if(app.get('env') === 'development') { // export ENV_NODE=production to test this block
-    console.log('Morgen enabled...');
+    debug('Morgen enabled...');
     app.use(morgan('tiny'));
 }
 
-console.log('App Name: ' + config.get('name'));
+// dbDebugger('DB connected...');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // built-in middleware func
