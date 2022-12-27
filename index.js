@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const express = require('express');
 const bodyParser = require('body-parser')
 
@@ -23,7 +24,12 @@ app.get('/api/courses/:id', (req, res) => {
 });
 
 app.post('/api/courses', (req, res) => {
-    if (!req.body.name || req.body.name.length < 3) res.status(400).send('Input is not valid!');
+    const schema = Joi.object({
+        name: Joi.string().min(3).required(),
+    });
+    const validateRes = schema.validate(req.body);
+
+    if (validateRes.error) res.status(400).send(validateRes.error.message);
 
     courses.push({ id: courses.length + 1, name: req.body.name });
     res.send(courses);
