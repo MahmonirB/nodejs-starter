@@ -1,10 +1,19 @@
 const express = require('express');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const logger = require('./logger');
 const validate = require('./validate');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // built-in middleware func
+app.use(express.static('public'));
+app.use(helmet());
+app.use(morgan('dev'));
+
+app.use(logger); // custom middleware function
 
 const courses = [
     { id: 1, name: 'course1' },
