@@ -9,7 +9,8 @@ const homeRouter = require('./routes/home');
 const logger = require('./middleware/logger');
 const validate = require('./validate');
 const config = require('config');
-const dbQuery = require('./dbQuery');
+// const dbQuery = require('./dbQuery');
+const dbPagination = require('./dbPagination');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -32,6 +33,7 @@ app.use(helmet());
 
 app.use(logger); // custom middleware function
 
-dbQuery();
+// dbQuery();
+dbPagination();
 
 app.listen(port, () => console.log(`Listening to port ${port} ...`));
