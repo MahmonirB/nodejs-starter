@@ -15,26 +15,4 @@ const courseSchema = new mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-// async function saveData() {
-// const course = new Course({
-//     name: 'Learning angular',
-//     author: 'mosh',
-//     tags: ['frontend', 'angular']
-// });
-
-// const result = await course.save();
-// console.log(result)
-// }
-
-// saveData();
-
-async function getQuery() {
-    const result = await Course.find({ author: { $in: ['mosh'] }})
-    .limit(10)
-    .sort({ name: 1 })
-    .select({ name: 1, author: 1 });
-
-    console.log(result);
-
-}
-getQuery();
+module.exports = Course;
