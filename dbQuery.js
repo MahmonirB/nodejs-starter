@@ -1,4 +1,13 @@
-const Course = require("./db");
+const Course = require('./models/course');
+
+async function getDataQuery({ select, id }) {
+  try {
+    const result = await Course.find({ _id: id }).select(select);
+    return result;
+  } catch (err) {
+    console.log(err.message);
+  }
+}
 
 async function getQuery() {
   return await Course.find({ author: { $in: ["mosh"] }, name: /.*angular.*/i })
@@ -13,4 +22,4 @@ async function displayQuery() {
   console.log(result);
 }
 
-module.exports = displayQuery;
+module.exports = getDataQuery;

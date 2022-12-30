@@ -1,4 +1,4 @@
-const Course = require('./db');
+const Course = require('./models/course');
 
 async function deleteRecord(id) {
     return await Course.findByIdAndDelete(id);
