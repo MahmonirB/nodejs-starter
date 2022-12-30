@@ -23,11 +23,15 @@ const courseSchema = new mongoose.Schema({
   tags: {
     type: Array,
     validate: {
-      validator: function (v) {
-        return v && v.length > 0;
+      isAsync: true,
+      validator: function(v) {
+        return new Promise((resolve, reject) => {
+          if (v && v.length) return resolve("right");
+          return reject("Opps!");
+        })
       },
       message: "An error occured into validator.",
-    },
+    }
   },
   date: { type: Date, default: Date.now },
 });

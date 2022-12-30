@@ -5,19 +5,19 @@ async function saveData() {
     name: "Learning angular",
     author: "mosh",
     category: "book",
-    tags: ['backend'],
+    tags: ["frontend"],
   });
 
-  return await course.save();
+  try {
+    return await course.save();
+  } catch (err) {
+    console.log(err._message);
+  }
 }
 
 async function displayResult() {
-  try {
-    const result = await saveData();
-    console.log(result);
-  } catch (err) {
-    console.log(err.message);
-  }
+  const result = await saveData();
+  console.log(result);
 }
 
 module.exports = displayResult;
