@@ -3,13 +3,14 @@ const validate = require('../validate');
 const getData = require('../dbQuery');
 const addData = require('../dbNewRecord');
 const updateRecord = require('../dbUpdateRecord');
+const deleteRecord = require('../dbDelete');
 const router = express.Router();
 
 
 router.get('/', async (req, res) => {
     const courses = await getData({ name: 1, tags: 1 });
 
-    if (!course) return res.status(404).send('Any courses are not Found!');
+    if (!courses) return res.status(404).send('Any courses are not Found!');
 
     res.send(courses);
 });
@@ -41,13 +42,12 @@ router.put('/:id', async (req, res) => {
      res.send(courses);
  });
 
-//  router.delete('/:id', (req, res) => {
-//     const index = courses.findIndex(el => el.id === parseInt(req.params.id));
-//     if (index < 0) return res.status(404).send('Course Id is not Found!');
+ router.delete('/:id', async (req, res) => {
+    const course = await deleteRecord(req.params.id);
 
-//     courses.splice(index, 1);
+    if (!course) return res.status(404).send('Course Id is not Found!');
     
-//     res.send(courses);
-// });
+    res.send(course);
+});
 
 module.exports = router;

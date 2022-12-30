@@ -1,9 +1,14 @@
-const Course = require('./models/course');
+const Course = require("./models/course");
 
 async function getDataQuery({ select, id }) {
   try {
-    const result = await Course.find({ _id: id }).select(select);
-    return result;
+    if (id && select) {
+      const result = await Course.find({ _id: id }).select(select);
+      return result;
+    } else {
+      const result = await Course.find();
+      return result;
+    }
   } catch (err) {
     console.log(err.message);
   }
