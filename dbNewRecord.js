@@ -3,9 +3,10 @@ const Course = require("./db");
 async function saveData() {
   const course = new Course({
     name: "Learning angular",
-    author: "mosh",
-    category: "-",
-    tags: [],
+    author: " mosh ",
+    category: "BOOK",
+    tags: ["frontend"],
+    price: 10.58,
   });
 
   try {

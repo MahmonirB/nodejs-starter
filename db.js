@@ -18,8 +18,9 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ["book", "online"],
+    lowercase: true,
   },
-  author: String,
+  author: { type: String, trim: true },
   tags: {
     type: Array,
     validate: {
@@ -34,6 +35,13 @@ const courseSchema = new mongoose.Schema({
     }
   },
   date: { type: Date, default: Date.now },
+  price: {
+    type: Number,
+    min: 10,
+    max: 200,
+    get: v => Math.round(v), // called when we read a value from db
+    set: v => Math.round(v),  // called when we write price value in db
+  }
 });
 
 const Course = mongoose.model("Course", courseSchema);
