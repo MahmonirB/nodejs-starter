@@ -4,14 +4,14 @@ async function saveData() {
   const course = new Course({
     name: "Learning angular",
     author: "mosh",
-    category: "book",
-    tags: ["frontend"],
+    category: "-",
+    tags: [],
   });
 
   try {
     return await course.save();
   } catch (err) {
-    console.log(err._message);
+    for (field in err.errors) console.log(err.errors[field].message);
   }
 }
 
