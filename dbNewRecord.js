@@ -1,17 +1,13 @@
-const Course = require("./db");
+const Course = require('./models/course');
 
-async function saveData() {
-  const course = new Course({
-    name: "Learning angular",
-    author: "mosh",
-    category: "book",
-    tags: ["frontend"],
-  });
+async function addData(data) {
+  const course = new Course(data);
 
   try {
-    return await course.save();
+    const result = await course.save();
+    return result;
   } catch (err) {
-    console.log(err._message);
+    for (field in err.errors) console.log(err.errors[field].message);
   }
 }
 
@@ -20,4 +16,4 @@ async function displayResult() {
   console.log(result);
 }
 
-module.exports = displayResult;
+module.exports = addData;

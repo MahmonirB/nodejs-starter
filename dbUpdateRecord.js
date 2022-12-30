@@ -1,35 +1,41 @@
-const Course = require('./db');
+const Course = require("./models/course");
 
 async function updateRecord(id) {
-    const course = await Course.findById(id);
+  const course = await Course.findById(id);
 
-    if(!course) return;
+  if (!course) return;
 
-    course.author = "Mahi joon";
+  course.author = "Mahi joon";
 
-    return await course.save();
-
+  return await course.save();
 }
 
-async function updateRecordDirectly(id) {
-    return await Course.update({ _id: id }, {
-        $set: {
-            author: 'Mahak'
-        }
-    });
+async function updateRecordDirectly(id, data) {
+  try {
+    const result = await Course.updateOne(
+      { _id: id },
+      {
+        $set: data,
+      }
+    );
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
-async function updateRecordDirectlyWithRes(id) {
-    return await Course.findByIdAndUpdate(id, {
-        $set: {
-            author: 'Mahmonir khanum'
-        }
-    }, { new: 1 });
+async function updateRecordDirectlyWithRes(id, data) {
+  try {
+    const result = await Course.findByIdAndUpdate(id, { $set: data }, { new: 1 });
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 async function displayUpdated(id) {
-    const result = await updateRecordDirectlyWithRes(id);
-    console.log(result);
+  const result = await updateRecordDirectlyWithRes(id);
+  console.log(result);
 }
 
-module.exports = displayUpdated;
+module.exports = updateRecordDirectlyWithRes;

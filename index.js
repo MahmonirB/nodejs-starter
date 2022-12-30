@@ -7,7 +7,6 @@ const debug = require('debug')('app:startup'); // export DEBUG=app:startup,app:d
 const courseRouter = require('./routes/courses');
 const homeRouter = require('./routes/home');
 const logger = require('./middleware/logger');
-const validate = require('./validate');
 const config = require('config');
 // const dbQuery = require('./dbQuery');
 const dbPagination = require('./dbPagination');
@@ -27,19 +26,13 @@ if(app.get('env') === 'development') { // export ENV_NODE=production to test thi
 }
 
 // dbDebugger('DB connected...');
-app.use('/', homeRouter);
-app.use('/api/courses', courseRouter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // built-in middleware func
 app.use(express.static('public'));
 app.use(helmet());
+app.use('/', homeRouter);
+app.use('/api/courses', courseRouter);
 
 app.use(logger); // custom middleware function
-
-// dbQuery();
-// dbPagination();
-// dbUpdate('63adba897f41e7232340ca00');
-// dbRemoved('63adba897f41e7232340ca00');
-dbNewRecord();
 
 app.listen(port, () => console.log(`Listening to port ${port} ...`));
