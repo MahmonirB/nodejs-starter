@@ -35,5 +35,4 @@ app.use('/api/courses', courseRouter);
 
 app.use(logger); // custom middleware function
 
-
 app.listen(port, () => console.log(`Listening to port ${port} ...`));
