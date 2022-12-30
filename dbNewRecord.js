@@ -1,13 +1,18 @@
-const Course = require('./db');
+const Course = require("./db");
 
 async function saveData() {
   const course = new Course({
     name: "Learning angular",
     author: "mosh",
-    tags: ["frontend", "angular"],
+    category: "book",
+    tags: ["frontend"],
   });
 
-  return await course.save();
+  try {
+    return await course.save();
+  } catch (err) {
+    console.log(err._message);
+  }
 }
 
 async function displayResult() {
