@@ -13,6 +13,7 @@ const config = require('config');
 const dbPagination = require('./dbPagination');
 const dbUpdate = require('./dbUpdateRecord');
 // const dbRemoved = require('./dbDelete');
+const dbNewRecord = require('./dbNewRecord');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -36,8 +37,9 @@ app.use(helmet());
 app.use(logger); // custom middleware function
 
 // dbQuery();
-dbPagination();
-dbUpdate('63adba897f41e7232340ca00');
+// dbPagination();
+// dbUpdate('63adba897f41e7232340ca00');
 // dbRemoved('63adba897f41e7232340ca00');
+dbNewRecord();
 
 app.listen(port, () => console.log(`Listening to port ${port} ...`));
