@@ -31,8 +31,8 @@ router.post("/", async (req, res) => {
     console.log(err.message);
   }
 
-  const token = jwt.sign({ id: user._id }, config.get("jwtPrivateKey"));
-  res.header('x-auth-token', token).send(_.pick(user, ["_id", "name", "email"]));
+  const token = jwt.sign({ id: user._id }, config.get("jwtPrivateKey")); // get key from environment
+  res.header('x-auth-token', token).send(_.pick(user, ["_id", "name", "email"])); // set header to client response
 });
 
 module.exports = router;
