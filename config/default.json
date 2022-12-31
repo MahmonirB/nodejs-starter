@@ -1,3 +1,4 @@
 {
-    "name": "My app"
+    "name": "My app",
+    "jwtPrivateKey": ""
 }

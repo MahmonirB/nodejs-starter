@@ -15,6 +15,7 @@ const dbPagination = require('./dbPagination');
 const dbUpdate = require('./dbUpdateRecord');
 // const dbRemoved = require('./dbDelete');
 const dbNewRecord = require('./dbNewRecord');
+const { exist } = require('joi');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,6 +26,11 @@ app.set('views', './views');
 if(app.get('env') === 'development') { // export ENV_NODE=production to test this block
     debug('Morgen enabled...');
     app.use(morgan('tiny'));
+}
+
+if(!config.get("jwtPrivateKey")) {
+    console.log("FATAL ERROR: jwt key not found!"); // export jwtPrivateKey=xxx and unset jwtPrivateKey=xxx
+    return process.exit(1);
 }
 
 // dbDebugger('DB connected...');
