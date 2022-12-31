@@ -1,6 +1,4 @@
 const express = require("express");
-const config = require("config");
-const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const User = require("../models/user");
 const { getHashedValue, compareCredential } = require("../hash");
