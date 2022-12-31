@@ -1,4 +1,5 @@
 const express = require("express");
+const _ = require('lodash');
 const User = require("../models/user");
 const { validateUser } = require("../validate");
 
@@ -17,7 +18,7 @@ router.post("/", async (req, res) => {
 
   if (user) return res.status(400).send("User is registered before!");
   
-  user = new User({ name: req.body.name , email: req.body.email , password: req.body.password });
+  user = new User(_.pick(req.body, ['name', 'email', 'password']));
 
   try {
     const result = await user.save();
@@ -26,7 +27,7 @@ router.post("/", async (req, res) => {
     console.log(err.message);
   }
 
-  res.send(user);
+  res.send(_.pick(user, ['name', 'email']));
 });
 
 module.exports = router;
