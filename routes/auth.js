@@ -1,4 +1,5 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const _ = require("lodash");
 const User = require("../models/user");
 const { getHashedValue, compareCredential } = require("../hash");
@@ -24,7 +25,9 @@ router.post("/", async (req, res) => {
 
   if (!validCredential) return res.status(400).send("Invalid email or password.");
 
-  res.send(_.pick(user, ["name", "email"]));
+  user.token = jwt.sign({ id: user._id }, 'jwt');
+  
+  res.send(_.pick(user, ["name", "email", "token"]));
 });
 
 module.exports = router;
