@@ -6,4 +6,9 @@ async function getHashedValue(data) {
     return await bcrypt.hash(data, salt);
 }
 
-module.exports = getHashedValue;
+async function compareCredential(oldData, newData) {
+    return bcrypt.compare(oldData, newData);
+}
+
+module.exports.getHashedValue = getHashedValue;
+module.exports.compareCredential = compareCredential;

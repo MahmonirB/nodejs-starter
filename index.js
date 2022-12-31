@@ -7,6 +7,7 @@ const debug = require('debug')('app:startup'); // export DEBUG=app:startup,app:d
 const courseRouter = require('./routes/courses');
 const homeRouter = require('./routes/home');
 const userRouter = require('./routes/users');
+const authRouter = require('./routes/auth');
 const logger = require('./middleware/logger');
 const config = require('config');
 // const dbQuery = require('./dbQuery');
@@ -34,6 +35,7 @@ app.use(helmet());
 app.use('/', homeRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/user', userRouter);
+app.use('/api/auth', authRouter);
 
 app.use(logger); // custom middleware function
 
