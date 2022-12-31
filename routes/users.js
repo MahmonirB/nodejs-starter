@@ -1,9 +1,9 @@
 const express = require("express");
 const config = require("config");
 const jwt = require("jsonwebtoken");
-const _ = require("lodash");
 const User = require("../models/user");
 const { getHashedValue } = require("../hash");
+const _ = require("lodash");
 const { validateUser } = require("../validate");
 
 const router = express.Router();
