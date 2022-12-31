@@ -1,5 +1,6 @@
 const express = require('express');
-const validate = require('../validate');
+const auth = require("../middleware/auth");
+const { validate } = require('../validate');
 const getData = require('../dbQuery');
 const addData = require('../dbNewRecord');
 const updateRecord = require('../dbUpdateRecord');
@@ -7,7 +8,7 @@ const deleteRecord = require('../dbDelete');
 const router = express.Router();
 
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     const courses = await getData({ name: 1, tags: 1 });
 
     if (!courses) return res.status(404).send('Any courses are not Found!');
@@ -23,7 +24,7 @@ router.get('/:id', async (req, res) => {
     res.send(course);
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.status(400).send(error.message);
 
@@ -33,7 +34,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const { error } = validate(req.body);
-    if (error) res.status(400).send(error.message);
+    if (error) return res.status(400).send(error.message);
 
     const courses = await updateRecord(req.params.id, req.body);
 
