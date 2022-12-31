@@ -6,6 +6,7 @@ const debug = require('debug')('app:startup'); // export DEBUG=app:startup,app:d
 // const dbDebugger = require('debug')('app:db');
 const courseRouter = require('./routes/courses');
 const homeRouter = require('./routes/home');
+const userRouter = require('./routes/users');
 const logger = require('./middleware/logger');
 const config = require('config');
 // const dbQuery = require('./dbQuery');
@@ -32,6 +33,7 @@ app.use(express.static('public'));
 app.use(helmet());
 app.use('/', homeRouter);
 app.use('/api/courses', courseRouter);
+app.use('/api/user', userRouter);
 
 app.use(logger); // custom middleware function
 
