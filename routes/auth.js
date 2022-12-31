@@ -26,9 +26,8 @@ router.post("/", async (req, res) => {
 
   if (!validCredential) return res.status(400).send("Invalid email or password.");
 
-  user.token = jwt.sign({ id: user._id }, config.get("jwtPrivateKey"));
-
-  res.send(_.pick(user, ["name", "email", "token"]));
+  const token = user.generateToken();
+  res.header('x-auth-token', token).send(_.pick(user, ["name", "email", "token"]));
 });
 
 module.exports = router;

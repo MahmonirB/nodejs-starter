@@ -1,6 +1,4 @@
 const express = require("express");
-const config = require("config");
-const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { getHashedValue } = require("../hash");
 const _ = require("lodash");
@@ -31,7 +29,7 @@ router.post("/", async (req, res) => {
     console.log(err.message);
   }
 
-  const token = jwt.sign({ id: user._id }, config.get("jwtPrivateKey")); // get key from environment
+  const token = user.generateToken();
   res.header('x-auth-token', token).send(_.pick(user, ["_id", "name", "email"])); // set header to client response
 });
 
