@@ -1,13 +1,15 @@
 const express = require("express");
-const _ = require('lodash');
+const _ = require("lodash");
 const User = require("../models/user");
+const getHashedValue = require("../hash");
 const { validateUser } = require("../validate");
 
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   const isValid = validateUser(req.body);
-  if (isValid.error) return res.status(400).send(isValid.error.details[0].message);
+  if (isValid.error)
+    return res.status(400).send(isValid.error.details[0].message);
 
   let user;
   try {
@@ -17,8 +19,9 @@ router.post("/", async (req, res) => {
   }
 
   if (user) return res.status(400).send("User is registered before!");
-  
-  user = new User(_.pick(req.body, ['name', 'email', 'password']));
+
+  user = new User(_.pick(req.body, ["name", "email", "password"]));
+  user.password = await getHashedValue(user.password);
 
   try {
     const result = await user.save();
@@ -27,7 +30,7 @@ router.post("/", async (req, res) => {
     console.log(err.message);
   }
 
-  res.send(_.pick(user, ['name', 'email']));
+  res.send(_.pick(user, ["name", "email"]));
 });
 
 module.exports = router;
