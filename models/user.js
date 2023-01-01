@@ -29,11 +29,12 @@ const userSchema = new mongoose.Schema({
     minLength: 8,
     maxLength: 255,
   },
+  isAdmin: Boolean,
 });
 
 // Encapsulate generating token into user object, using user with this._id
 userSchema.methods.generateToken = function () {
-  return jwt.sign({ id: this._id }, config.get("jwtPrivateKey")); // get key from environment
+  return jwt.sign({ id: this._id, isAdmin: this.isAdmin }, config.get("jwtPrivateKey")); // get key from environment
 };
 
 const User = mongoose.model("User", userSchema);

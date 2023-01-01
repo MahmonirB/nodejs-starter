@@ -5,6 +5,7 @@ const getData = require('../dbQuery');
 const addData = require('../dbNewRecord');
 const updateRecord = require('../dbUpdateRecord');
 const deleteRecord = require('../dbDelete');
+const admin = require('../middleware/admin');
 const router = express.Router();
 
 
@@ -43,7 +44,7 @@ router.put('/:id', async (req, res) => {
      res.send(courses);
  });
 
- router.delete('/:id', async (req, res) => {
+ router.delete('/:id', [auth, admin], async (req, res) => {
     const course = await deleteRecord(req.params.id);
 
     if (!course) return res.status(404).send('Course Id is not Found!');
