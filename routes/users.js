@@ -8,8 +8,6 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/profile", auth, async (req, res) => {
-  // if (!req.user._id) return res.status(400).send('Data is not correct.');
-console.log(req.user)
   const user = await User.findById(req.user.id).select('-password');
 
   res.send(user);
