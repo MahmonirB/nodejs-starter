@@ -3,8 +3,15 @@ const User = require("../models/user");
 const { getHashedValue } = require("../hash");
 const _ = require("lodash");
 const { validateUser } = require("../validate");
+const auth = require("../middleware/auth");
 
 const router = express.Router();
+
+router.get("/profile", auth, async (req, res) => {
+  const user = await User.findById(req.user.id).select('-password');
+
+  res.send(user);
+});
 
 router.post("/", async (req, res) => {
   const isValid = validateUser(req.body);
