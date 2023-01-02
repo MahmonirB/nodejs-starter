@@ -1,3 +1,5 @@
+require('express-async-errors');
+const winston = require('winston');
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -17,6 +19,8 @@ const dbUpdate = require('./dbUpdateRecord');
 const dbNewRecord = require('./dbNewRecord');
 const errorHandling = require('./middleware/errorHandling');
 const { exist } = require('joi');
+
+winston.add(new winston.transports.File({ filename: 'logFile.log' }));
 
 const app = express();
 const port = process.env.PORT || 3000;
