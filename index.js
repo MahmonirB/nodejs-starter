@@ -21,6 +21,13 @@ const dbNewRecord = require("./dbNewRecord");
 const errorHandling = require("./middleware/errorHandling");
 const { exist } = require("joi");
 
+winston.add(
+  new winston.transports.File({
+    filename: "uncaughtException.log",
+    handleExceptions: true,
+    handleRejections: true,
+  })
+);
 winston.add(new winston.transports.File({ filename: "logFile.log" }));
 winston.add(
   new winston.transports.MongoDB({
