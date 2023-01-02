@@ -21,12 +21,19 @@ router.post("/", asyncHandler(async (req, res) => {
 
   if (!user) return res.status(400).send("Email is not registered.");
 
-  const validCredential = await compareCredential(req.body.password, user.password);
+  const validCredential = await compareCredential(
+    req.body.password,
+    user.password
+  );
 
-  if (!validCredential) return res.status(400).send("Invalid email or password.");
+  if (!validCredential)
+    return res.status(400).send("Invalid email or password.");
 
   const token = user.generateToken();
-  res.header('x-auth-token', token).send(_.pick(user, ["name", "email", "token"]));
-}));
+
+  res
+    .header("x-auth-token", token)
+    .send(_.pick(user, ["name", "email", "token"]));
+});
 
 module.exports = router;
