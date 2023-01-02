@@ -2,13 +2,6 @@ const mongoose = require("mongoose");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 
-mongoose.set("strictQuery", false);
-
-mongoose
-  .connect("mongodb://localhost/playground")
-  .then(() => console.log("Connected"))
-  .catch((err) => console.log(err));
-
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
