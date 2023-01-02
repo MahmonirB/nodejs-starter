@@ -6,11 +6,12 @@ module.exports = function() {
 winston.add(
     new winston.transports.File({
       filename: "uncaughtException.log",
+      level: "error",
       handleExceptions: true,
       handleRejections: true,
     })
   );
-  winston.add(new winston.transports.File({ filename: "logFile.log" }));
+  winston.add(new winston.transports.File({ filename: "logFile.log", level: "error" }));
   winston.add(
     new winston.transports.MongoDB({
       db: "mongodb://localhost/playground",
