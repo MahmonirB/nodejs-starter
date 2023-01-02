@@ -15,6 +15,7 @@ const dbPagination = require('./dbPagination');
 const dbUpdate = require('./dbUpdateRecord');
 // const dbRemoved = require('./dbDelete');
 const dbNewRecord = require('./dbNewRecord');
+const errorHandling = require('./middleware/errorHandling');
 const { exist } = require('joi');
 
 const app = express();
@@ -42,6 +43,8 @@ app.use('/', homeRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+
+app.use(errorHandling);
 
 app.use(logger); // custom middleware function
 

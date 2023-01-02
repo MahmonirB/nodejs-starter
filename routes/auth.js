@@ -3,10 +3,11 @@ const _ = require("lodash");
 const User = require("../models/user");
 const { getHashedValue, compareCredential } = require("../hash");
 const { validateAuth } = require("../validate");
+const asyncHandler = require("../middleware/asyncHandler");
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", asyncHandler(async (req, res) => {
   const isValid = validateAuth(req.body);
   if (isValid.error)
     return res.status(400).send(isValid.error.details[0].message);
@@ -26,6 +27,6 @@ router.post("/", async (req, res) => {
 
   const token = user.generateToken();
   res.header('x-auth-token', token).send(_.pick(user, ["name", "email", "token"]));
-});
+}));
 
 module.exports = router;

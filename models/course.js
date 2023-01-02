@@ -2,11 +2,6 @@ const mongoose = require("mongoose");
 
 mongoose.set("strictQuery", false);
 
-mongoose
-  .connect("mongodb://localhost/playground")
-  .then(() => console.log("Connected"))
-  .catch((err) => console.log(err));
-
 const Course = mongoose.model(
   "Course",
   new mongoose.Schema({
