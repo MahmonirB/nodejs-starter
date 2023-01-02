@@ -7,7 +7,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 
 const router = express.Router();
 
-router.post("/", asyncHandler(async (req, res) => {
+router.post("/", async (req, res) => {
   const isValid = validateAuth(req.body);
   if (isValid.error)
     return res.status(400).send(isValid.error.details[0].message);
