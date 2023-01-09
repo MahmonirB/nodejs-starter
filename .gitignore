@@ -2,3 +2,5 @@ node_modules/
 
 logFile.log
 uncaughtException.log
+
+.vscode/
